@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -39,8 +40,10 @@ public class PlayerMover : MonoBehaviour
             Jump();
     }
 
-    private void TurnDown() => 
+    private void TurnDown()
+    {
         transform.rotation = Quaternion.Lerp(transform.rotation, _minAngle, _rotationSpeed * Time.deltaTime);
+    }
 
     private Quaternion SetAngle(float angle) => 
         Quaternion.Euler(new Vector3(0, 0, angle));

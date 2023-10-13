@@ -12,6 +12,9 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _player.Die();
+        if (collision.gameObject.TryGetComponent(out PlayerBullet bullet))
+            return;
+
+         _player.Die();
     }
 }

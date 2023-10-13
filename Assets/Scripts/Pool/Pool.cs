@@ -7,10 +7,13 @@ public class Pool : MonoBehaviour
     [SerializeField] private Transform _container;
     [SerializeField] private int _capacity;
 
+    private Camera _camera;
     private List<GameObject> _pool = new List<GameObject>();
 
     protected void Initialize(GameObject[] templates)
     {
+        _camera = Camera.main;
+
         for (int i = 0; i < _capacity; i++)
         {
             int index = Random.Range(0, templates.Length);
@@ -28,7 +31,18 @@ public class Pool : MonoBehaviour
         return result != null;
     }
 
-    public void ResetPool()
+    public void DetermineAbroadPoint()
+    {
+        Vector3 abroadPoint = _camera.ViewportToWorldPoint(new Vector2(-0.1f, 0.5f));
+
+        foreach (var item in _pool)
+        {
+            if ((item.activeSelf == true) && (item.transform.position.x < abroadPoint.x))
+                item.SetActive(false);
+        }
+    }
+
+    public void Reset()
     {
         foreach (var item in _pool)
         {
