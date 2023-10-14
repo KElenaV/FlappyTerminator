@@ -1,16 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCreator : Pool
 {
+    [SerializeField] private Transform[] _points;
     [SerializeField] private GameObject[] _prefabs;
-    [SerializeField] private float _maxPositionY;
-    [SerializeField] private float _minPositionY;
     [SerializeField] private float delay = 5f;
 
     private WaitForSeconds _waitForSeconds;
 
-    private void Awake()
+    private void Start()
     {
         _waitForSeconds = new WaitForSeconds(delay);
 
@@ -25,12 +25,10 @@ public class EnemyCreator : Pool
         {
             if (TryGetObject(out GameObject enemy))
             {
-                float nextPointY = Random.Range(_minPositionY, _maxPositionY);
+                int nextPoint = Random.Range(0, _points.Length);
                 enemy.SetActive(true);
-                enemy.transform.position = new Vector3(transform.position.x, nextPointY, transform.position.z);
-                enemy.transform.SetParent(this.transform);
-
-                DetermineAbroadPoint();
+                enemy.transform.position = _points[nextPoint].position;
+                enemy.transform.SetParent(_points[nextPoint]);
             }
 
             yield return _waitForSeconds;

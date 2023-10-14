@@ -1,27 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerAction))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Bullet _bullet;
-    [SerializeField] private Transform _container;
-    [SerializeField] private Transform _bulletPoint;
-
-    private PlayerMover _mover;
+    private PlayerAction _mover;
     private int _score;
 
     private void Start()
     {
-        _mover = GetComponent<PlayerMover>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Bullet bullet = Instantiate(_bullet, _bulletPoint.position, transform.rotation, _container);
-            bullet.gameObject.SetActive(true);
-        }
+        _mover = GetComponent<PlayerAction>();
     }
 
     public void Reset()
@@ -32,6 +19,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        Debug.Log("Died");
         Time.timeScale = 0;
     }
 }

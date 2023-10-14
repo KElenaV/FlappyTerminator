@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,21 +5,29 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _direction;
-    [SerializeField] private float _delay = 2;
+    [SerializeField] private float _delay = 0.6f;
+    [SerializeField] private Transform _startPosition;
 
-    private Vector3 _startPosition;
-    private Transform _player;
     private WaitForSeconds _waitForSecond;
 
     private void Awake()
     {
-        _startPosition = transform.localPosition;
         _waitForSecond = new WaitForSeconds(_delay);
     }
 
     private void OnEnable()
     {
         StartCoroutine(Instantiate());
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Ground ground) == false)
+        {
+            collision.gameObject.SetActive(false);
+        }
+            
+        gameObject.SetActive(false);
     }
 
     private void Update()
@@ -30,9 +37,19 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator Instantiate()
     {
-        yield return _waitForSecond;
+        transform.localPosition = _startPosition.position;
+        transform.localRotation = _startPosition.rotation;
+        
+        while (gameObject.activeSelf == true)
+        {
+            yield return _waitForSecond;
+            gameObject.SetActive(false);
+        }
+    }
 
-        transform.localPosition = _startPosition;
-        gameObject.SetActive(false);
+    internal void Init(Vector3 position, Quaternion rotation)
+    {
+        transform.localPosition = position;
+        transform.localRotation = rotation;
     }
 }
