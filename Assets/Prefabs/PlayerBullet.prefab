@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1675618367126572723}
   - component: {fileID: -356707549835805284}
   m_Layer: 0
-  m_Name: PlayerBoolet
+  m_Name: PlayerBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   _speed: 3
   _direction: 1
   _delay: 2
+  _startPosition: {fileID: 0}
 --- !u!58 &1675618367126572723
 CircleCollider2D:
   m_ObjectHideFlags: 0

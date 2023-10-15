@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("Died");
         Time.timeScale = 0;
     }
 }

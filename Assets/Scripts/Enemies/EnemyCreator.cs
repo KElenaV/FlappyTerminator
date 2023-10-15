@@ -1,10 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCreator : Pool
 {
-    [SerializeField] private Transform[] _points;
+    [SerializeField] private float _minPositionY;
+    [SerializeField] private float _maxPositionY;
     [SerializeField] private GameObject[] _prefabs;
     [SerializeField] private float delay = 5f;
 
@@ -25,10 +25,12 @@ public class EnemyCreator : Pool
         {
             if (TryGetObject(out GameObject enemy))
             {
-                int nextPoint = Random.Range(0, _points.Length);
+                float nextPositionY = Random.Range(_minPositionY, _maxPositionY);
+                enemy.transform.position = new Vector2(transform.position.x, nextPositionY);
+                enemy.transform.SetParent(this.transform);
                 enemy.SetActive(true);
-                enemy.transform.position = _points[nextPoint].position;
-                enemy.transform.SetParent(_points[nextPoint]);
+
+                DisableObjectAbroadScreen();
             }
 
             yield return _waitForSeconds;
