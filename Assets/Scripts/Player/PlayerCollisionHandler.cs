@@ -12,6 +12,10 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _player.Die();
+        if (collision.gameObject.TryGetComponent(out Ground ground) == false)
+            collision.gameObject.SetActive(false);
+
+        Debug.Log("Hit");
+        //_player.Die();
     }
 }

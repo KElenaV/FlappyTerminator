@@ -5,7 +5,7 @@ public class EnemyCreator : Pool
 {
     [SerializeField] private float _minPositionY;
     [SerializeField] private float _maxPositionY;
-    [SerializeField] private GameObject[] _prefabs;
+    [SerializeField] private GameObject[] _template;
     [SerializeField] private float delay = 5f;
 
     private WaitForSeconds _waitForSeconds;
@@ -14,7 +14,7 @@ public class EnemyCreator : Pool
     {
         _waitForSeconds = new WaitForSeconds(delay);
 
-        Initialize(_prefabs);
+        Initialize(_template);
 
         StartCoroutine(Create());
     }

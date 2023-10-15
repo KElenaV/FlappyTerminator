@@ -8,7 +8,7 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] private float _minAngleZ;
     [SerializeField] private float _maxAngleZ;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private Bullet _bullet;
+    [SerializeField] private PlayerBullet _bullet;
 
     private bool _canJump;
     private Rigidbody2D _rigidbody;
@@ -42,7 +42,10 @@ public class PlayerAction : MonoBehaviour
     public void TryShoot()
     {
         if (_bullet.gameObject.activeSelf == false)
+        {
+            _bullet.PlaceInStartPoint();
             _bullet.gameObject.SetActive(true);
+        }
     }
 
     public void Reset()
