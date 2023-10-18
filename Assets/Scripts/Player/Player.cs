@@ -1,24 +1,34 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerAction))]
 public class Player : MonoBehaviour
 {
-    private PlayerAction _mover;
+    private PlayerBullet _bullet;
+
+    private PlayerAction _playerAction;
     private int _score;
+
+    public event UnityAction Died;
 
     private void Start()
     {
-        _mover = GetComponent<PlayerAction>();
+        _playerAction = GetComponent<PlayerAction>();
+    }
+
+    public void ScoreChanged()
+    {
+        _score++;
     }
 
     public void Reset()
     {
         _score = 0;
-        _mover.Reset();
+        _playerAction.Reset();
     }
 
     public void Die()
     {
-        Time.timeScale = 0;
+        Died?.Invoke();
     }
 }

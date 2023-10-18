@@ -15,7 +15,6 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out Ground ground) == false)
             collision.gameObject.SetActive(false);
 
-        Debug.Log("Hit");
-        //_player.Die();
+        _player.Die();
     }
 }

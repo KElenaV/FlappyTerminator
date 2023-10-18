@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerBullet : MonoBehaviour
 {
@@ -14,7 +15,12 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out Enemy enemy) || collision.gameObject.TryGetComponent(out EnemyBullet bullet))
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        {
+            collision.gameObject.SetActive(false);
+        }
+
+        if(collision.gameObject.TryGetComponent(out EnemyBullet bullet))
         {
             collision.gameObject.SetActive(false);
         }

@@ -33,7 +33,7 @@ public class Pool : MonoBehaviour
         return result != null;
     }
 
-    public void ResetPool()
+    public void Reset()
     {
         foreach (var item in _pool)
         {
