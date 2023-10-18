@@ -8,6 +8,8 @@ public class PlayerBullet : MonoBehaviour
 
     private Camera _camera;
 
+    public event UnityAction EnemyKilled;
+
     private void Awake()
     {
         _camera = Camera.main;
@@ -17,6 +19,7 @@ public class PlayerBullet : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out Enemy enemy))
         {
+            EnemyKilled?.Invoke();
             collision.gameObject.SetActive(false);
         }
 
