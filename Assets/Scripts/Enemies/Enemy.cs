@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -6,21 +7,34 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyBullet _bullet;
 
     private float _delay = 1.5f;
-    private float _elapsedTime;
+
+    public EnemyBullet Bullet => _bullet;
+
+    private void OnEnable()
+    {
+        StartCoroutine(Shoot());
+    }
 
     private void Update()
     {
         transform.Translate(Vector3.left * _speed * Time.deltaTime);
+    }
 
-        if (_bullet.gameObject.activeSelf == false)
+   private IEnumerator Shoot()
+    {
+        while (true)
         {
-            _elapsedTime += Time.deltaTime;
+            yield return new WaitForSeconds(_delay);
+            Debug.Log(_delay);
 
-            if (_elapsedTime > _delay)
-            {
-                _elapsedTime = 0;
+            if (_bullet.gameObject.activeSelf == false)
                 _bullet.gameObject.SetActive(true);
-            }
         }
+    }
+
+    public void Reset()
+    {
+        gameObject.SetActive(false);
+        _bullet.gameObject.SetActive(false);
     }
 }

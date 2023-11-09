@@ -6,7 +6,7 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _delay = 0.6f;
     [SerializeField] private Enemy _enemy;
-    
+
     private Vector3 _startPoint;
 
     private WaitForSeconds _waitForSecond;
@@ -32,11 +32,8 @@ public class EnemyBullet : MonoBehaviour
     {
         transform.localPosition = _startPoint;
 
-        while (gameObject.activeSelf == true)
-        {
-            yield return _waitForSecond;
-            gameObject.transform.parent = _enemy.transform;
-            gameObject.SetActive(false);
-        }
+        yield return _waitForSecond;
+        gameObject.transform.parent = _enemy.transform;
+        gameObject.SetActive(false);
     }
 }

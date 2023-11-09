@@ -9,6 +9,7 @@ public class EnemyCreator : Pool
     [SerializeField] private float delay = 5f;
 
     private WaitForSeconds _waitForSeconds;
+    private Enemy _enemy;
 
     private void Start()
     {
@@ -23,17 +24,23 @@ public class EnemyCreator : Pool
     {
         while (true)
         {
-            if (TryGetObject(out GameObject enemy))
+            if (TryGetObject(out GameObject _enemy))
             {
                 float nextPositionY = Random.Range(_minPositionY, _maxPositionY);
-                enemy.transform.position = new Vector2(transform.position.x, nextPositionY);
-                enemy.transform.SetParent(this.transform);
-                enemy.SetActive(true);
+                _enemy.transform.position = new Vector2(transform.position.x, nextPositionY);
+                _enemy.transform.SetParent(this.transform);
+                _enemy.SetActive(true);
 
                 DisableObjectAbroadScreen();
             }
 
             yield return _waitForSeconds;
         }
+    }
+
+    public void Reset()
+    {
+        _enemy.gameObject.SetActive(false);
+        _enemy.Bullet.gameObject.SetActive(false);
     }
 }

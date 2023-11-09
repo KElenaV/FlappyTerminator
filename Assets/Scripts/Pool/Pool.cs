@@ -38,6 +38,9 @@ public class Pool : MonoBehaviour
         foreach (var item in _pool)
         {
             item.SetActive(false);
+
+            if (item.TryGetComponent(out Enemy enemy))
+                enemy.Bullet.gameObject.SetActive(false);
         }
     }
 
